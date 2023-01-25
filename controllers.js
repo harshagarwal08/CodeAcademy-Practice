@@ -1,0 +1,65 @@
+let tasks = [{ id: 1, task: 'buy shampoo', isComplete: 'false' }, { id: 2, task: 'finish assignment', isComplete: 'false' }]
+
+exports.create = (req, res) => {
+  if (!req.body.task) {
+    return res.status(204).send({
+      message: 'Task content can not be empty'
+    })
+  }
+  const newTask = {
+    id: tasks.length + 1,
+    task: req.body.task,
+    isComplete: 'false'
+  }
+  tasks.push(newTask)
+  res.send('Task added successfully!')
+}
+
+exports.getAll = (req, res) => {
+  if (tasks.length < 1) {
+    res.status(204).send({
+      message: 'there are no tasks available'
+    })
+  }
+  res.send(tasks)
+}
+
+exports.getOne = (req, res) => {
+  if (tasks.length < 1) {
+    return res.status(204).send('there are no tasks available')
+  }
+  const id = req.params.taskId
+  const singleTask = tasks.filter((task) => {
+    return (task.id === Number(id))
+  })
+  if (singleTask.length === 0) {
+    return res.status(204).send('there are no tasks available')
+  }
+  res.status(200).send(singleTask)
+}
+
+exports.update = (req, res) => {
+  const id = req.params.taskId
+  const taskTitle = req.body.taskTitle
+  tasks = tasks.map((task) => {
+    if (task.id === Number(id)) return { ...task, task: taskTitle }
+    else return task
+  })
+  res.status(200).send('Task updated successfully!')
+}
+
+exports.complete = (req, res) => {
+  const id = req.params.taskId
+  tasks = tasks.map((task) => {
+    if (task.id === Number(id)) return { ...task, isComplete: 'true' }
+    else return task
+  })
+  res.status(200).send('Task marked as completed.')
+}
+
+exports.delete = (req, res) => {
+  tasks = tasks.filter((task) => {
+    return (task.isComplete !== 'true')
+  })
+  res.status(200).send('All the completed tasks are deleted.')
+}
