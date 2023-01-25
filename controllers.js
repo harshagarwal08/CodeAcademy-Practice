@@ -1,4 +1,4 @@
-let tasks = [{ id: 1, task: 'buy shampoo', isComplete: 'false' }, { id: 2, task: 'finish assignment', isComplete: 'false' }]
+let tasks = []
 
 exports.create = (req, res) => {
   if (!req.body.task) {
@@ -17,7 +17,7 @@ exports.create = (req, res) => {
 
 exports.getAll = (req, res) => {
   if (tasks.length < 1) {
-    res.status(204).send({
+    return res.status(400).send({
       message: 'there are no tasks available'
     })
   }
@@ -43,7 +43,7 @@ exports.update = (req, res) => {
   const taskTitle = req.body.taskTitle
   tasks = tasks.map((task) => {
     if (task.id === Number(id)) return { ...task, task: taskTitle }
-    else return task
+    return task
   })
   res.status(200).send('Task updated successfully!')
 }
@@ -52,7 +52,7 @@ exports.complete = (req, res) => {
   const id = req.params.taskId
   tasks = tasks.map((task) => {
     if (task.id === Number(id)) return { ...task, isComplete: 'true' }
-    else return task
+    return task
   })
   res.status(200).send('Task marked as completed.')
 }
