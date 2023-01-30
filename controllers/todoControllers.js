@@ -1,24 +1,24 @@
 const services = require('../services/todoServices.js')
 exports.createController = (req, res) => {
-  services.create()
+  services.create(req, res)
 }
 
 exports.getAll = (req, res) => {
-  services.getAll()
+  services.getAll(req, res)
 }
 
 exports.getOne = (req, res) => {
-  services.getOne()
+  services.getOne(req, res)
 }
 
 exports.update = (req, res) => {
-  services.update()
+  services.update(req, res)
 }
 
 exports.complete = (req, res) => {
-  services.complete()
+  services.complete(req, res)
 }
 
 exports.delete = (req, res) => {
-  services.delete()
+  services.delete(req, res)
 }

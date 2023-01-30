@@ -1,5 +1,5 @@
 let tasks = []
-exports.create = (req, res) => { 
+exports.create = (req, res) => {
   if (!req.body.task) {
     return res.status(204).send('Task content can not be empty')
   }
