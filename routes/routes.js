@@ -1,5 +1,9 @@
 module.exports = (app) => {
-  const tasks = require('./controllers.js')
+  const tasks = require('../controllers/todoControllers.js')
+
+  // app.routes('/tasks').get(tasks.getAll).post(tasks.create).delete(tasks.delete)
+
+  // app.routes('/tasks/:taskId').get(tasks.getOne).put(tasks.update).patch(tasks.complete)
 
   // Create a new task
   app.post('/tasks', tasks.create)
@@ -11,10 +15,10 @@ module.exports = (app) => {
   app.get('/tasks/:taskId', tasks.getOne)
 
   // Update a task with taskId
-  app.put('/tasks/:taskId', tasks.update)
+  app.put('/task/:taskId', tasks.update)
 
   // Complete a task with taskId
-  app.patch('/tasks/:taskId', tasks.complete)
+  app.patch('/task/:taskId', tasks.complete)
 
   // Delete tasks that are completed
   app.delete('/tasks', tasks.delete)

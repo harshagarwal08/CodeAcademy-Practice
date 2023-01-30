@@ -1,14 +1,11 @@
 let tasks = []
-
-exports.create = (req, res) => {
+exports.create = (req, res) => { 
   if (!req.body.task) {
-    return res.status(204).send({
-      message: 'Task content can not be empty'
-    })
+    return res.status(204).send('Task content can not be empty')
   }
   const newTask = {
+    ...req.body,
     id: tasks.length + 1,
-    task: req.body.task,
     isComplete: 'false'
   }
   tasks.push(newTask)
@@ -17,9 +14,7 @@ exports.create = (req, res) => {
 
 exports.getAll = (req, res) => {
   if (tasks.length < 1) {
-    return res.status(400).send({
-      message: 'there are no tasks available'
-    })
+    return res.status(400).send('there are no tasks available')
   }
   res.send(tasks)
 }
